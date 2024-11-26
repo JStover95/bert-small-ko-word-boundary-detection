@@ -16,6 +16,7 @@ def random_index_excluding_token(string: str, token: str = "<N>") -> int | None:
 
     Parameters:
     - string (str): The input string containing `token`s.
+    - token (str, optional): The token. Default: "<N>".
 
     Returns:
     - int: A random valid index not pointing to the `token`, or None if no valid index exists.
@@ -66,7 +67,7 @@ def process_text(
 
     Parameters:
     - text (str): The input text to process.
-    - digit_token (str): The token to replace all numbers with.
+    - digit_token (str, optional): The token to replace all numbers with. Default: "<N>"
 
     Returns:
     - tuple[dict[str, int], dict[str, int]]: two dicts with (string: str, count: int) key, value pairs that count the
