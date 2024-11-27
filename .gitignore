@@ -1,2 +1,6 @@
 env/
 .vscode/
+*.csv
+__pycache__/
+hyperparameters.json
+output/

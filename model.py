@@ -43,7 +43,7 @@ class BertForWordBoundaryDetection(nn.Module):
         logits = self.classifier(cls_output)  # (batch_size, 1)
         return logits
 
-    def tokenize_function(self, texts: str | list[str]):
+    def tokenize_function(self, texts: str):
         # Tokenize inputs with padding, truncation, and maximum length
         return self.tokenizer(
             texts,

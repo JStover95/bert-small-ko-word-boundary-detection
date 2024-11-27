@@ -35,7 +35,7 @@ class Hyperparameters:
     batch_size: int = 8
     epochs: int = 10
     learning_rate: float = 2e-5
-    N: int = 10 ** 4
+    N: int = int(1e4)
     num_warmup_steps: int = 0
 
 
@@ -53,7 +53,7 @@ try:
                     logger.warning(f"Failed parsing hyperparameter {k}={v}. {v} invalid literal for int and float.")
 
     hyperparameters = Hyperparameters(**json_data)
-    logger.info(f"Loaded hyperparameters: {json.load(hyperparameters.__dict__, indent=4)}")
+    logger.info(f"Loaded hyperparameters: {json.dumps(hyperparameters.__dict__, indent=4)}")
 
 except FileNotFoundError:
     logger.info("No hyperparameters found; using defaults.")
@@ -96,7 +96,7 @@ for epoch in range(hyperparameters.epochs):
     dataset = Dataset.from_pandas(df)
 
     # Tokenize dataset
-    tokenized_dataset = dataset.map(bert.tokenize_function, batched=True)
+    tokenized_dataset = dataset.map(lambda x: bert.tokenize_function(x["text"]), batched=True)
 
     # Split into train and validation sets
     train_test_split = tokenized_dataset.train_test_split(
@@ -171,6 +171,8 @@ for epoch in range(hyperparameters.epochs):
     logger.info(f"Epoch {epoch + 1}/{hyperparameters.epochs} - Time: {time.time() - start_time:.2f} seconds")
 
 # Save the model
-model_path = os.path.join("output", "pytorch_model.bin")
+output_dir = "output"
+os.makedirs(output_dir, exist_ok=True)
+model_path = os.path.join(output_dir, "pytorch_model.bin")
 torch.save(bert.state_dict(), model_path)
 logger.info("Training complete. Model saved to %s", model_path)

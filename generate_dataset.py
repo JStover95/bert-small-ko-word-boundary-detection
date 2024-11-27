@@ -38,7 +38,7 @@ def random_index_excluding_token(string: str, token: str = "<N>") -> int | None:
         start += token_length
 
     # Create a set of all valid indices
-    valid_indices = set(range(n))
+    valid_indices = set(range(1, n))
     for invalid_range in invalid_ranges:
         valid_indices -= set(invalid_range)
 
@@ -174,8 +174,8 @@ def main(
 
     # Initialize an empty dataframe
     df = pd.DataFrame({
-        "string": pd.Series([""] * n),
-        "state": pd.Series(np.zeros(n), dtype=int),
+        "text": pd.Series([""] * n),
+        "label": pd.Series(np.zeros(n), dtype=int),
         "count": pd.Series(np.zeros(n), dtype=int),
     })
 
@@ -197,7 +197,7 @@ def main(
     for i, (string, count) in iterator:
         df.iloc[i + n_same] = [string, 1, count]
 
-    df.to_csv("training_data.csv", header=False, index=False)
+    df.to_csv("training_data.csv", index=False)
 
 
 if __name__ == "__main__":
