@@ -4,3 +4,5 @@ env/
 __pycache__/
 hyperparameters.json
 output/
+.DS_Store
+*.tar.gz
