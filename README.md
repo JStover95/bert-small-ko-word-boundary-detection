@@ -31,6 +31,8 @@ This project uses the following major libraries:
 - Python 3.8+
 - Pandas
 - PyTorch
+- AWS SDK for Python (Boto3)
+- Amazon SageMaker SDK
 - tqdm
 - HuggingFace Transformers
 - HuggingFace Datasets
@@ -140,6 +142,17 @@ To modify hyperparameters, edit the `train.py` script.
 `Max Sequence Length` was calculated as the 95th percentile of tokenized sequence lengths in the full processed dataset. The code for calculating the max sequence length can be found in the `calculate_seq_length.py` script.
 
 The hyperparameter `N` is the number of samples drawn from the full processed dataset on each training epoch. `N` and `Number of Epochs` were chosen as 10<sup>4</sup> and 10 to favor more training iterations with smaller, more varied batches of training data.
+
+## **Amazon SageMaker AI**
+
+This repository includes an example Jupyter notebook `deploy.ipynb` for deploying this model for use on Amazon SageMaker AI. To deploy this model, create a Jupyter notebook on the Amazon SageMaker AI console and clone this repository:
+
+1. From the **Create notebook instance** menu, select **Default repository** under **Git repositories**.
+2. From the **Repository** dropdown menu, select **Clone a public Git repository to this notebook instance only**.
+3. Enter this repository's URL under **Git repository URL**.
+
+When your notebook instance is deployed, run all cells in `deploy.ipynb`. The script contains detailed information about deployment.
+
 
 ## **Contributing**
 
